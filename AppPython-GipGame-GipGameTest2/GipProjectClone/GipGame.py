@@ -9,7 +9,7 @@ the first player to 100 wins
 
 This defines the main, and uses Player and Dice objects to play.
 """
-
+import pygame
 from player import Player
 from dice import Dice
 
