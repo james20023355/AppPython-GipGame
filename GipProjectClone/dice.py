@@ -1,5 +1,6 @@
 """
-Dice Class
+This class defines a Dice
+Dice has 1 function
 """
 from random import randint
 
