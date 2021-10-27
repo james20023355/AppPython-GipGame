@@ -24,7 +24,8 @@ class GipGame():
         self.player2 = Player(name="Player 2")
         self.players = [self.player1, self.player2]
         self.continueGame = 'y'
-        self.gui = richGUI(self.player1.getname(), self.player2.getname(), self.player1.getscore(), self.player2.getscore(), 0, 0)
+        self.gui = richGUI("Player 1", "Player 2", self.player1, self.player2, self.player1.getscore(), self.player2.getscore(), 0, 0)
+        #self.gui = richGUI(self.player1.getname(), self.player2.getname(), self.player1.getscore(), self.player2.getscore(), 0, 0)
 
     def playerMove(self, player):
         """
@@ -37,8 +38,9 @@ class GipGame():
         rollAgain = "y"
         tempscore = 0
         roll = Dice.roll()
-        console.print(f"{player.getname()}'s turn!", style="bold blue")
-
+        self.gui.updateP1Name(self.player1.getname())
+        self.gui.updateP2Name(self.player2.getname())
+        console.print(f":pig: {player.getname()}'s turn! :pig:", style="bold blue")
         while rollAgain == "y":
             roll = Dice.roll()
             self.gui.updateRoll(roll)
@@ -46,7 +48,7 @@ class GipGame():
             if roll == 1:
                 #if player rolls a 1, they do not get to go again and temp score = 0
                 self.gui.printGUI()
-                console.print(f"{player.getname()}! TURN TERMINATED!", style="bold red")
+                console.print(f":pig2: {player.getname()}! TURN TERMINATED! :pig2:", style="bold red")
                 input()
                 rollAgain = "f" # Changed this variable from "n" to "f" as to not add the score when they lost that round
             else:
@@ -85,8 +87,10 @@ class GipGame():
         This function prompts user to start game as well as asking whether to use custom names
         :return: continueGame Y or N
         """
-        self.continueGame = input(f"Welcome to Gip! \nStart game? Y/N \n").lower()
-        print()
+        print("Welcome to Gip Game!\n")
+        self.player1.changeName(input("Player 1, enter your name: "))
+        self.player2.changeName(input("Player 2, enter your name: "))
+        self.continueGame = input(f"Start game? Y/N ").lower()
 
     def mainloop(self):
         """

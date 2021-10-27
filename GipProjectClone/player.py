@@ -10,13 +10,16 @@ isWinner: checks if player score is 100 or above, the winning score
 """
 
 class Player():
-    def __init__(self, name="", score=0):
+    def __init__(self,  name="", score=0):
         self.__name = name
         self.__score = score
 
     def getname(self):
         return self.__name
-        
+
+    def changeName(self, inputName):
+        self.__name = inputName
+
     def getscore(self):
         """
         This function returns player score

@@ -10,21 +10,25 @@ PrintGui function will need to take in any of the available variables and edit t
 │         Roll: 3           │
 │     current score: 52     │
 │ player1           player2 │
+│ "p1name          "p2name" │
 │ score: 55        score:32 │
 ╰───────────────────────────╯
 
 
 """
 
-
+from player import Player
 from rich import console
 from rich.console import Console
 console = Console()
 
+
 class richGUI():
-    def __init__(self, player1="", player2="", score1=0, score2=0, roll=0, tempscore=0):
+    def __init__(self, player1="", player2="", p1name="", p2name="", score1=0, score2=0, roll=0, tempscore=0):
         self.__player1 = player1
         self.__player2 = player2
+        self.__p1name = p1name
+        self.__p2name = p2name
         self.__score1 = score1
         self.__score2 = score2
         self.__roll = roll
@@ -37,6 +41,8 @@ class richGUI():
         """
         roll = f"Roll: {self.__roll}"
         current = f"Current count: {self.__tempscore}"
+        p1name = f"{self.__p1name}"
+        p2name = f"{self.__p2name}"
         player1 = f"{self.__player1}"
         player2 = f"{self.__player2}"
         score1 = f"Score:{self.__score1}"
@@ -48,6 +54,7 @@ class richGUI():
         console.print(f"[green]│[/]{current:^28}[green]│[/]")
         console.print(f"[green]│[/]{message:^28}[green]│[/]")
         console.print(f"[green]│[/] {player1:<13}{player2:>13} [green]│[/]")
+        console.print(f"[green]│[/] {p1name:<13}{p2name:>13} [green]│[/]")
         console.print(f"[green]│[/]  [#de8221 bold]{score1:<12}{score2:>12}[/]  [green]│[/]")
         console.print(f"╰────────────────────────────╯", style="green")
 
@@ -63,6 +70,12 @@ class richGUI():
         console.print(f"[magenta]│[/]{playe:^28}[magenta]│[/]")
         console.print(f"[magenta]│[/]{goodjob:^28}[magenta]│[/]")
         console.print(f"╰────────────────────────────╯", style="magenta")
+
+    def updateP1Name(self, player):
+        self.__p1name = player
+
+    def updateP2Name(self, player):
+        self.__p2name = player
 
     def updatePlayer1(self, player):
         self.__player1 = player
