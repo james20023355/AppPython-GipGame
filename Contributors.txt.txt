@@ -5,3 +5,5 @@ Ruby Rose Davis (owner)
 Thomas Greener (Contributer)
 
 Anthony Colangelo (contributor)
+
+James Penales (Contributor)

@@ -18,14 +18,16 @@ from rich.console import Console
 
 console = Console()
 
+
 class GipGame():
     def __init__(self):
         self.player1 = Player(name="Player 1")
         self.player2 = Player(name="Player 2")
         self.players = [self.player1, self.player2]
         self.continueGame = 'y'
-        self.gui = richGUI("Player 1", "Player 2", self.player1, self.player2, self.player1.getscore(), self.player2.getscore(), 0, 0)
-        #self.gui = richGUI(self.player1.getname(), self.player2.getname(), self.player1.getscore(), self.player2.getscore(), 0, 0)
+        self.gui = richGUI("Player 1", "Player 2", self.player1, self.player2, self.player1.getscore(),
+                           self.player2.getscore(), 0, 0)
+        # self.gui = richGUI(self.player1.getname(), self.player2.getname(), self.player1.getscore(), self.player2.getscore(), 0, 0)
 
     def playerMove(self, player):
         """
@@ -44,13 +46,13 @@ class GipGame():
         while rollAgain == "y":
             roll = Dice.roll()
             self.gui.updateRoll(roll)
-            
+
             if roll == 1:
-                #if player rolls a 1, they do not get to go again and temp score = 0
+                # if player rolls a 1, they do not get to go again and temp score = 0
                 self.gui.printGUI()
                 console.print(f":pig2: {player.getname()}! TURN TERMINATED! :pig2:", style="bold red")
                 input()
-                rollAgain = "f" # Changed this variable from "n" to "f" as to not add the score when they lost that round
+                rollAgain = "f"  # Changed this variable from "n" to "f" as to not add the score when they lost that round
             else:
                 tempscore += roll
                 self.gui.updateTemp(tempscore)
@@ -82,6 +84,31 @@ class GipGame():
         self.continueGame = 'n'
         quit()
 
+    def introMessage(self):
+        """ This method is in charge of the introduction to the game"""
+        from time import sleep
+
+        tutorial = [
+            "\n> Each player gets a turn to roll a die, if the player rolls a number between 2 and 6.",
+            "> That number is added to the overall score for that turn.",
+            "> The player will have the option to keep re-rolling.",
+            "> But if they roll a 1, the amount of points built up in that turn is lost.",
+            "> And the other player gets a turn",
+            "> First Person to 100 wins.",
+            "> Good Luck.\n"]
+
+        intro = input("\nWould you like to learn the Rules of Gip Game? [Y/N]: ")
+
+        if intro.upper() == "Y":
+            for message in tutorial:
+                print(message)
+                sleep(5)
+        elif intro.upper() == "N":
+            pass
+        else:
+            print("> [ERROR]: Please Enter either 'Y' or 'N'.")
+            self.introMessage()
+
     def startGame(self):
         """
         This function prompts user to start game as well as asking whether to use custom names
@@ -90,6 +117,7 @@ class GipGame():
         print("Welcome to Gip Game!\n")
         self.player1.changeName(input("Player 1, enter your name: "))
         self.player2.changeName(input("Player 2, enter your name: "))
+        self.introMessage()
         self.continueGame = input(f"Start game? Y/N ").lower()
 
     def mainloop(self):
@@ -110,4 +138,3 @@ if __name__ == '__main__':
     gipgame.startGame()
     if gipgame.continueGame == 'y':
         gipgame.mainloop()
-
